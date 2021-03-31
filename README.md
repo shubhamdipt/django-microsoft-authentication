@@ -25,9 +25,9 @@ pip install django-microsoft-authentication
 MICROSOFT = {
     "app_id": "YOUR_APP_ID_HERE",
     "app_secret": "YOUR_APP_SECRET_HERE",
-    "redirect": "http://localhost:8000/callback",
+    "redirect": "http://localhost:8000/microsoft_authentication/callback",
     "scopes": ["user.read"],
-    "authority": "https://login.microsoftonline.com/common",
+    "authority": "https://login.microsoftonline.com/common",  # or using tenant "https://login.microsoftonline.com/{tenant}",
     "valid_email_domains": ["<list_of_valid_domains>"],
     "logout_uri": "http://localhost:8000/admin/logout"
 }
@@ -85,3 +85,7 @@ def specific_group_access(request):
 
 ```
 
+### Troubleshooting during development
+
+* Use http://localhost:8000 instead of http://127.0.0.1:8000 because session cookies 
+  are set differently for these urls.

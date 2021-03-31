@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 links = []  # for repo urls (dependency_links)
 
 DESCRIPTION = "Django based app for Microsoft authentication of users."
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 
 setup(
     name="django-microsoft-authentication",
