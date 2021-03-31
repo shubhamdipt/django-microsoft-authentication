@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 links = []  # for repo urls (dependency_links)
 
 DESCRIPTION = "Django based app for Microsoft authentication of users."
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 
 setup(
     name="django-microsoft-authentication",
@@ -37,7 +37,7 @@ setup(
     long_description=open('README.md').read(),
     url="https://github.com/shubhamdipt/django-microsoft-authentication",
     license="MIT",
-    packages=['microsoft_authentication'],
+    packages=['microsoft_authentication', 'microsoft_authentication.auth', 'microsoft_authentication.migrations'],
     platforms=["any"],
     keywords=["django", "microsoft", "authentication"],
     classifiers=(
