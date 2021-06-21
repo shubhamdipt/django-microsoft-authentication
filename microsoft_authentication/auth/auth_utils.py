@@ -1,11 +1,11 @@
-from django.conf import settings
-from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
+import random
+import string
+
 import msal
 import requests
-import string
-import random
-
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
 
 ms_settings = settings.MICROSOFT
 graph_url = 'https://graph.microsoft.com/v1.0'
@@ -17,7 +17,7 @@ def get_user(token):
         headers={'Authorization': 'Bearer {0}'.format(token)},
     )
     return r.json()
-  
+
 
 def load_cache(request):
     cache = msal.SerializableTokenCache()
@@ -29,7 +29,7 @@ def load_cache(request):
 def save_cache(request, cache):
     if cache.has_state_changed:
         request.session['token_cache'] = cache.serialize()
-        
+
 
 def get_msal_app(cache=None):
     # Initialize the MSAL confidential client
@@ -62,7 +62,7 @@ def get_token_from_code(request):
 def get_token(request):
     cache = load_cache(request)
     auth_app = get_msal_app(cache)
-    
+
     accounts = auth_app.get_accounts()
     if accounts:
         result = auth_app.acquire_token_silent(
@@ -71,7 +71,7 @@ def get_token(request):
         )
         save_cache(request, cache)
         return result['access_token']
-    
+
 
 def remove_user_and_token(request):
     if 'token_cache' in request.session:
@@ -97,6 +97,7 @@ def validate_username(username):
 
 
 def get_django_user(email):
+    User = get_user_model()
     if not validate_username(username=email):
         return
     try:
@@ -104,6 +105,6 @@ def get_django_user(email):
     except User.DoesNotExist:
         random_password = ''.join(random.choice(string.ascii_letters) for i in range(32))
         user = User(username=email, email=email, password=make_password(random_password))
-        user.is_staff = True
+        user.is_staff = settings.MSAUTH_NEWUSER_IS_STAFF or True
         user.save()
     return user
