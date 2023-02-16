@@ -39,6 +39,12 @@ MICROSOFT = {
 ```python
 LOGIN_URL = "/microsoft_authentication/login"
 LOGIN_REDIRECT_URL = "/admin"  # optional and can be changed to any other url
+
+
+# True: creates new Django User after valid microsoft authentication. 
+# False: it will only allow those users which are already created in Django User model and 
+# will validate the email using Microsoft.
+MICROSOFT_CREATE_NEW_DJANGO_USER = True  # Default value is True
 ```
 
 
@@ -55,6 +61,10 @@ urlpatterns = [
     path('microsoft_authentication/', include('microsoft_authentication.urls'))
 ]
 ```
+
+* In templates \
+  Use "{% url 'microsoft_authentication:microsoft_authentication_login' %}" as login url \
+  Use "{% url 'microsoft_authentication:microsoft_authentication_logout' %}" as logout url
 
 
 ## How it works?

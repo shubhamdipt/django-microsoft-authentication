@@ -59,6 +59,7 @@ docs/_build/
 target/
 
 .idea
+venv/
 debug.log
 *.zip
 config.ini
