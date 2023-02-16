@@ -84,15 +84,15 @@ def get_logout_url():
 # Non-microsoft related functions
 
 
-def validate_username(username):
-    return "@" in username and username.split("@")[1] in settings.MICROSOFT["valid_email_domains"]
+def validate_email(email):
+    return "@" in email and email.split("@")[1] in settings.MICROSOFT["valid_email_domains"]
 
 
 def get_django_user(email, create_new=True):
-    if not validate_username(username=email):
+    if not validate_email(email=email):
         return
     try:
-        user = User.objects.get(username=email)
+        user = User.objects.get(email=email)
     except User.DoesNotExist:
         if not create_new:
             return
