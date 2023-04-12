@@ -32,7 +32,7 @@ def callback(request):
     ms_user = get_user(result["access_token"])
     user = get_django_user(email=ms_user["mail"])
     if user:
-        login(request, user)
+        login(request, user, backend="django.contrib.auth.backends.ModelBackend")
     else:
         return HttpResponseForbidden("Invalid email for this app.")
     if next_url:
