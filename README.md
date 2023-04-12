@@ -29,7 +29,9 @@ MICROSOFT = {
     "scopes": ["user.read"],
     "authority": "https://login.microsoftonline.com/common",  # or using tenant "https://login.microsoftonline.com/{tenant}",
     "valid_email_domains": ["<list_of_valid_domains>"],
-    "logout_uri": "http://localhost:8000/admin/logout"
+    "logout_uri": "http://localhost:8000/admin/logout",
+    "email_property": "mail", # Alternatively "userPrincipalName"
+    "new_user_is_staff": True # Default
 }
 ```
 

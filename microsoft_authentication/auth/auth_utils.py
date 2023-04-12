@@ -104,6 +104,9 @@ def get_django_user(email, create_new=True):
             last_name=ms_user["surname"],            
             password=make_password(random_password)
         )
-        user.is_staff = False
+        if "new_user_is_staff" in settings.MICROSOFT and settings.MICROSOFT["new_user_is_staff"]:
+            user.is_staff = True
+        else:
+            user.is_staff = False
         user.save()
     return user
