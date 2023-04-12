@@ -11,6 +11,7 @@ from microsoft_authentication.auth.auth_utils import (
 
 
 def microsoft_login(request):
+    request.session["next_url"] = request.GET["next"]
     flow = get_sign_in_flow()
     try:
         request.session['auth_flow'] = flow
@@ -25,6 +26,7 @@ def microsoft_logout(request):
 
 
 def callback(request):
+    next_url = request.session.pop("next_url", None)
     result = get_token_from_code(request)
     ms_user = get_user(result['access_token'])
     user = get_django_user(email=ms_user['mail'])
@@ -32,4 +34,7 @@ def callback(request):
         login(request, user)
     else:
         return HttpResponseForbidden("Invalid email for this app.")
-    return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL or "/admin")
+    if next_url is None:
+        return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL or "/admin")
+    else:
+        return HttpResponseRedirect(next_url)
