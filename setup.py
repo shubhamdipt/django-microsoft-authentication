@@ -18,14 +18,14 @@
 #     rm -rf ./dist && python3 setup.py sdist bdist_wheel && python3 -m twine upload dist/*
 #
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 # Usage: python setup.py sdist bdist_wheel
 
 links = []  # for repo urls (dependency_links)
 
 DESCRIPTION = "Django based app for Microsoft authentication of users."
-VERSION = "0.1.2"
+VERSION = "0.1.4"
 
 setup(
     name="django-microsoft-authentication",
@@ -33,11 +33,11 @@ setup(
     author="Shubham Dipt",
     author_email="shubham.dipt@gmail.com",
     description=DESCRIPTION,
-    long_description_content_type='text/markdown',
-    long_description=open('README.md').read(),
+    long_description_content_type="text/markdown",
+    long_description=open("README.md").read(),
     url="https://github.com/shubhamdipt/django-microsoft-authentication",
     license="MIT",
-    packages=['microsoft_authentication', 'microsoft_authentication.auth', 'microsoft_authentication.migrations'],
+    packages=["microsoft_authentication", "microsoft_authentication.auth", "microsoft_authentication.migrations"],
     platforms=["any"],
     keywords=["django", "microsoft", "authentication"],
     classifiers=(
@@ -45,6 +45,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ),
-    install_requires=open('requirements.txt').read(),
+    install_requires=open("requirements.txt").read(),
     dependency_links=links,
 )
