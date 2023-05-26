@@ -45,6 +45,7 @@ LOGIN_REDIRECT_URL = "/admin"  # optional and can be changed to any other url
 # False: it will only allow those users which are already created in Django User model and 
 # will validate the email using Microsoft.
 MICROSOFT_CREATE_NEW_DJANGO_USER = True  # Optional, default value is True
+MICROSOFT_NEW_DJANGO_USER_IS_STAFF = True  # Optional, default value is True
 ```
 
 
